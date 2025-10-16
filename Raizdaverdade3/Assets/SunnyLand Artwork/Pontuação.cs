@@ -1,16 +1,28 @@
 using UnityEngine;
+using TMPro;
 
-public class Pontuação : MonoBehaviour
+public class PlayerScore : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    public int score = 0;
+    public TextMeshProUGUI scoreText;
+
     void Start()
     {
-        
+        UpdateScoreUI();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        
+        if (other.CompareTag("Coin"))
+        {
+            score += 1;
+            UpdateScoreUI();
+            Destroy(other.gameObject);
+        }
+    }
+
+    void UpdateScoreUI()
+    {
+        scoreText.text = "Pontos: " + score;
     }
 }
